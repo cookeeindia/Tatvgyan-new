@@ -1,0 +1,61 @@
+<!DOCTYPE html><html lang="gu">
+<head>
+  <meta charset="UTF-8">
+  <title>તત્વજ્ઞાન</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    h1 { text-align: center; }
+    .search-bar { display: flex; margin-bottom: 10px; }
+    .search-bar input { flex: 1; padding: 8px; }
+    .search-bar button { padding: 8px; }
+    .category-card, .result, .add-tag { border: 1px solid #ccc; padding: 10px; margin: 5px 0; }
+    .form-section { border: 1px solid #ccc; padding: 10px; margin-top: 10px; }
+  </style>
+</head>
+<body>  <h1>તત્વજ્ઞાન</h1>  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="શોધો..." maxlength="50">
+    <button onclick="performSearch()">🔍</button>
+  </div>  <div id="suggestions"></div>  <div id="categories">
+    <div class="category-card" onclick="selectCategory('ધર્મ')">ધર્મ 🕉</div>
+    <div class="category-card" onclick="selectCategory('વિજ્ઞાન')">વિજ્ઞાન 🔬</div>
+  </div><button onclick="showAddForm()">વિષય ઉમેરો</button>
+
+  <div id="addForm" class="form-section" style="display:none;">
+    <h3>વિષય ઉમેરો</h3>
+    <input type="text" id="subject" placeholder="વિષય" maxlength="50"><br>
+    <select id="book">
+      <option value="પુસ્તક A">પુસ્તક A</option>
+      <option value="પુસ્તક B">પુસ્તક B</option>
+    </select><br>
+    <input type="number" id="page" placeholder="પૃષ્ઠ" min="1" max="9999"><br>
+    <select id="paragraph">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+    </select><br>
+    <input type="text" id="searchTags" placeholder="કી વર્ડ (અપટુ 20)"><br>
+    <select id="category">
+      <option value="ધર્મ">ધર્મ</option>
+      <option value="વિજ્ઞાન">વિજ્ઞાન</option>
+    </select><br>
+    <button onclick="saveData()">સાચવો</button>
+  </div>  <div id="results"></div>  <script>
+    const data = [];
+
+    function performSearch() {
+      const query = document.getElementById('searchInput').value.trim();
+      const filtered = data.filter(d => d.searchTags.includes(query));
+      displayResults(filtered);
+    }
+
+    function displayResults(list) {
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '';
+      list.forEach(item => {
+        resultsDiv.innerHTML += `<div class
